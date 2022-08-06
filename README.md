@@ -10,7 +10,7 @@ Thangs-Breeze is an open source community developed project using the Thangs.com
 
 Thangs-Breeze provides an integrated search function into blender that allows you to then navigate to Thangs.com and import the desired model. The viewport can display previews of all the models found on Thangs in the add-on.
 
-<a href="https://imgur.com/ZG0W01Y"><img src="https://i.imgur.com/ZG0W01Y.gif" title="source: imgur.com" /></a>
+![](https://i.imgur.com/ZG0W01Yl.gif)
 
 ## Install
 
