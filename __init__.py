@@ -29,8 +29,8 @@ import time
 bl_info = {
     "name": "Thangs Model Search",
     "author": "Thangs",
-    "version": (0, 2, 0),
-    "blender": (3, 2, 2),
+    "version": (0, 1, 0),
+    "blender": (3, 2, 0),
     "location": "VIEW 3D > Sidebar > Thangs Search",
     "description": "Import Thangs Models (.glb, .usdz, .stl)",
     "warning": "",
@@ -295,7 +295,7 @@ class THANGS_PT_model_display(bpy.types.Panel):
         wm = context.window_manager
 
         layout = self.layout
-        layout.ui_units_x = 8.5
+        #layout.ui_units_x = 8.5
 
         if fetcher.searching == True:
             layout.active = False
@@ -329,7 +329,7 @@ class THANGS_PT_model_display(bpy.types.Panel):
                     wm, "Model", scale=6.5, scale_popup=8, show_labels=True)
 
                 grid = layout.grid_flow(
-                    columns=1, even_columns=True, even_rows=False)
+                    columns=1, even_columns=True, even_rows=True)
 
                 for model in fetcher.pcoll.Model:
                     modelTitle = model[0]
