@@ -96,7 +96,7 @@ class ThangsFetcher():
     def get_total_results(self):
         if self.Directory != self.pcoll.Model_dir:
             response = requests.get(
-                "https://thangs.com/api/models/v2/search-by-text?searchTerm="+self.query+"&scope=thangs")
+                "https://thangs.com/api/models/v2/search-by-text?utm_source=blender&utm_medium=referral&utm_campaign=blender_extender&searchTerm="+self.query+"&scope=thangs")
             if response.status_code != 200:
                 self.totalModels = 0
                 self.PageTotal = 0
