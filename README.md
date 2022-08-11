@@ -26,8 +26,6 @@ Thangs-Breeze provides an integrated search function into blender that allows yo
     - Enable the add-on by toggling the checkbox
 - Thangs-Breeze is now ready to use (see Usage)
 
-![Thangs-Breeze_3](https://user-images.githubusercontent.com/105221281/183767202-f9d7252a-b8cc-43f4-9aba-349b822873a3.gif)
-
 ## Usage
 
 ### To Search
