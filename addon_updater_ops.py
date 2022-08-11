@@ -60,7 +60,7 @@ except Exception as e:
 # Must declare this before classes are loaded
 # otherwise the bl_idname's will not match and have errors.
 # Must be all lowercase and no spaces
-updater.addon = "thangs-breeze"
+updater.addon = "thangs_breeze"
 
 
 # -----------------------------------------------------------------------------

@@ -38,7 +38,7 @@ bl_info = {
     "location": "VIEW 3D > Sidebar > Thangs Search",
     "description": "Import Thangs Models (.glb, .usdz, .stl)",
     "warning": "",
-    "doc_url": "N/A",
+    "doc_url": "https://github.com/RandyHucker/thangs-breeze",
     "category": "Import/Export",
 }
 
