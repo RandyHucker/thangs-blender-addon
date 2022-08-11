@@ -25,6 +25,13 @@ import os
 
 import bpy
 from bpy.app.handlers import persistent
+from bpy.props import (StringProperty,
+                       PointerProperty,
+                       FloatVectorProperty,
+                       BoolProperty,
+                       IntProperty,
+                       EnumProperty
+                       )
 
 # updater import, import safely
 # Prevents popups for users with invalid python installs e.g. missing libraries
@@ -335,7 +342,7 @@ class addon_updater_update_target(bpy.types.Operator):
             i += 1
         return ret
 
-    target = bpy.props.EnumProperty(
+    target = EnumProperty(
         name="Target version to install",
         description="Select the version to install",
         items=target_version
@@ -344,7 +351,7 @@ class addon_updater_update_target(bpy.types.Operator):
     # if true, run clean install - ie remove all files before adding new
     # equivalent to deleting the addon and reinstalling, except the
     # updater folder/backup folder remains
-    clean_install = bpy.props.BoolProperty(
+    clean_install = BoolProperty(
         name="Clean install",
         description="If enabled, completely clear the addon's folder before installing new update, creating a fresh install",
         default=False,
