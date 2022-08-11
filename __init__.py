@@ -26,13 +26,14 @@ import bpy.utils.previews
 import asyncio
 #from . import addon_updater_ops
 from .thangs_fetcher import ThangsFetcher
+from . import addon_updater_ops
 import socket
 
 
 bl_info = {
     "name": "Thangs Model Search",
     "author": "Thangs",
-    "version": (0, 1, 1),
+    "version": (0, 1, 2),
     "blender": (3, 2, 0),
     "location": "VIEW 3D > Sidebar > Thangs Search",
     "description": "Import Thangs Models (.glb, .usdz, .stl)",
@@ -41,56 +42,56 @@ bl_info = {
     "category": "Import/Export",
 }
 
-# @addon_updater_ops.make_annotations
 
+@addon_updater_ops.make_annotations
+class DemoPreferences(bpy.types.AddonPreferences):
+    """Demo bare-bones preferences"""
+    bl_idname = __package__
 
-# class DemoPreferences(bpy.types.AddonPreferences):
-#    """Demo bare-bones preferences"""
-#    bl_idname = __package__
+    # Addon updater preferences.
 
-#     # Addon updater preferences.
+    auto_check_update: BoolProperty(
+        name="Auto-check for Update",
+        description="If enabled, auto-check for updates using an interval",
+        default=False
+    )
 
-#     auto_check_update = bpy.props.BoolProperty(
-#         name="Auto-check for Update",
-#         description="If enabled, auto-check for updates using an interval",
-#         default=False)
+    updater_interval_months: IntProperty(
+        name='Months',
+        description="Number of months between checking for updates",
+        default=0,
+        min=0)
 
-#     updater_interval_months = bpy.props.IntProperty(
-#         name='Months',
-#         description="Number of months between checking for updates",
-#         default=0,
-#         min=0)
+    updater_interval_days: IntProperty(
+        name='Days',
+        description="Number of days between checking for updates",
+        default=7,
+        min=0,
+        max=31)
 
-#     updater_interval_days = bpy.props.IntProperty(
-#         name='Days',
-#         description="Number of days between checking for updates",
-#         default=7,
-#         min=0,
-#         max=31)
+    updater_interval_hours: IntProperty(
+        name='Hours',
+        description="Number of hours between checking for updates",
+        default=0,
+        min=0,
+        max=23)
 
-#     updater_interval_hours = bpy.props.IntProperty(
-#         name='Hours',
-#         description="Number of hours between checking for updates",
-#         default=0,
-#         min=0,
-#         max=23)
+    updater_interval_minutes: IntProperty(
+        name='Minutes',
+        description="Number of minutes between checking for updates",
+        default=0,
+        min=0,
+        max=59)
 
-#     updater_interval_minutes = bpy.props.IntProperty(
-#         name='Minutes',
-#         description="Number of minutes between checking for updates",
-#         default=0,
-#         min=0,
-#         max=59)
+    def draw(self, context):
+        layout = self.layout
 
-#     def draw(self, context):
-#         layout = self.layout
+        # Works best if a column, or even just self.layout.
+        mainrow = layout.row()
+        col = mainrow.column()
 
-#         # Works best if a column, or even just self.layout.
-#         mainrow = layout.row()
-#         col = mainrow.column()
-
-#         # Updater draw function, could also pass in col as third arg.
-#         addon_updater_ops.update_settings_ui(self, context)
+        # Updater draw function, could also pass in col as third arg.
+        addon_updater_ops.update_settings_ui(self, context)
 
 
 def confirm_list(object):
@@ -583,8 +584,6 @@ def register():
     fetcher.preview_collections["main"] = fetcher.pcoll
     icon_collections["main"] = icons_dict
 
-    # addon_updater_ops.register(bl_info)
-
     bpy.utils.register_class(THANGS_PT_model_display)
     bpy.utils.register_class(THANGS_OT_search_invoke)
     bpy.utils.register_class(SearchButton)
@@ -593,7 +592,7 @@ def register():
     bpy.utils.register_class(ThangsLink)
     bpy.utils.register_class(LastPageChange)
     bpy.utils.register_class(FirstPageChange)
-    # bpy.utils.register_class(DemoPreferences)
+    bpy.utils.register_class(DemoPreferences)
 
     bpy.types.Scene.thangs_model_search = bpy.props.StringProperty(
         name="",
@@ -608,6 +607,8 @@ def register():
     fetcher.deviceId = sysName
 
     fetcher.makeheartbeat()
+
+    addon_updater_ops.register(bl_info)
 
     print("Finished Register")
 
@@ -630,7 +631,7 @@ def unregister():
     bpy.utils.unregister_class(ThangsLink)
     bpy.utils.unregister_class(LastPageChange)
     bpy.utils.unregister_class(FirstPageChange)
-    # bpy.utils.unregister_class(DemoPreferences)
+    bpy.utils.unregister_class(DemoPreferences)
 
 
 if __name__ == "__main__":
