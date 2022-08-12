@@ -1,14 +1,14 @@
-# Thangs-Breeze
+# Thangs-Blender-Addon
 
 ## Thangs' Add-on for Blender
 
-Thangs-Breeze is a [Blender](http://www.blender.org) Add-on to search and preview [Thangs](https://thangs.com/) wide variety and quanity of models.
+Thangs-Blender-Addon is a [Blender](http://www.blender.org) Add-on to search and preview [Thangs](https://thangs.com/) wide variety and quanity of models.
 
-Thangs-Breeze is an open source community developed project using the Thangs.com API.
+Thangs-Blender-Addon is an open source community developed project using the Thangs.com API.
 
 ## Features
 
-Thangs-Breeze provides an integrated search function into blender that allows you to then navigate to Thangs.com and import the desired model. The viewport can display previews of all the models found on Thangs in the add-on.
+Thangs-Blender-Addon provides an integrated search function into blender that allows you to then navigate to Thangs.com and import the desired model. The viewport can display previews of all the models found on Thangs in the add-on.
 
 ![Thangs](https://user-images.githubusercontent.com/105221281/183229686-0c23f295-02a0-422d-8e5a-0f75dccf313d.gif)
 
@@ -41,4 +41,4 @@ To navigate to Thangs.com and continue your search on our site, click the button
 
 ## Report an Issue
 
-Thangs-Breeze is an open source project that is affiliated with Thangs. If you think you have found a problem or a bug with Thangs-Breeze, please [Check Existing Issues](/../../issues) to see if someone has already reported it. If not, please [Create a New Issue](/../../issues/new/choose), providing as much detail as possible to help us recreate the problem.
+Thangs-Blender-Addon is an open source project that is affiliated with Thangs. If you think you have found a problem or a bug with Thangs-Blender-Addon, please [Check Existing Issues](/../../issues) to see if someone has already reported it. If not, please [Create a New Issue](/../../issues/new/choose), providing as much detail as possible to help us recreate the problem.
