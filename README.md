@@ -20,11 +20,14 @@ Thangs-Breeze provides an integrated search function into blender that allows yo
 - Installation options
   - From a release Zip file (most users)
     - Download the latest release zip file from the [Releases Tab](/../../releases/)
+    - In releases, the thangs-breeze.zip is desired file.
     - Start Blender
     - Choose `Edit -> Preferences -> Add-ons -> Install`
     - Select the zip file and click `Install Add-on`
     - Enable the add-on by toggling the checkbox
 - Thangs-Breeze is now ready to use (see Usage)
+
+![Thangs-Breeze_3](https://user-images.githubusercontent.com/105221281/184414452-2c7913d5-4a20-47ca-a31b-125a21067523.gif)
 
 ## Usage
 
