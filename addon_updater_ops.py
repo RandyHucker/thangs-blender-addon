@@ -342,7 +342,7 @@ class addon_updater_update_target(bpy.types.Operator):
             i += 1
         return ret
 
-    target = EnumProperty(
+    target: bpy.props.EnumProperty(
         name="Target version to install",
         description="Select the version to install",
         items=target_version
@@ -379,7 +379,6 @@ class addon_updater_update_target(bpy.types.Operator):
         subcol.prop(self, "target", text="")
 
     def execute(self, context):
-
         # in case of error importing updater
         if updater.invalidupdater == True:
             return {'CANCELLED'}
