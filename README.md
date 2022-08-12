@@ -24,7 +24,7 @@ Thangs-Blender-Addon provides an integrated search function into blender that al
     - Choose `Edit -> Preferences -> Add-ons -> Install`
     - Select the zip file and click `Install Add-on`
     - Enable the add-on by toggling the checkbox
-- Thangs-Breeze is now ready to use (see Usage)
+- Thangs-Blender-Addon is now ready to use (see Usage)
 
 ![Thangs-Breeze_3](https://user-images.githubusercontent.com/105221281/184414452-2c7913d5-4a20-47ca-a31b-125a21067523.gif)
 
