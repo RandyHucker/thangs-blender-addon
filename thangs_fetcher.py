@@ -41,6 +41,7 @@ class ThangsFetcher():
         self.Directory = ""
         self.PageTotal = 0
         self.preview_collections = {}
+        self.eventCall = ""
         self.CurrentPage = 1
         self.searching = False
         self.failed = False
@@ -48,7 +49,7 @@ class ThangsFetcher():
         self.deviceId = ""
         self.ampURL = 'https://production-api.thangs.com/system/events'
         self.search_thread = None
-        self.heart_thread = None
+        self.event_thread = None
         self.search_callback = callback
         pass
 
@@ -60,10 +61,6 @@ class ThangsFetcher():
         # kick off a thread that does the searching
         self.search_thread = threading.Thread(
             target=self.get_http_search).start()
-
-        # if self.search_callback is not None:
-        #     self.search_callback()
-
         return True
 
     def cancel(self):
@@ -77,6 +74,8 @@ class ThangsFetcher():
 
     def reset(self):
         self.thumbnails = []
+        self.context = ""
+        self.thangs_ui_mode = ''
         self.modelIds = []
         self.modelTitles = []
         self.filePaths = []
@@ -85,29 +84,32 @@ class ThangsFetcher():
         self.totalModels = 0
         self.Counter = 0
         self.pcoll = ""
-        self.icons_dict = ""
         self.PageNumber = 1
         self.Directory = ""
         self.PageTotal = 0
         self.preview_collections = {}
-        self.icon_collections = {}
-        self.icons_dict
+        self.eventCall = ""
         self.CurrentPage = 1
         self.searching = False
+        self.failed = False
         self.query = ""
+        self.deviceId = ""
+        self.ampURL = 'https://production-api.thangs.com/system/events'
         self.search_thread = None
+        self.event_thread = None
         pass
 
-    def makeheartbeat(self):
-        self.heart_thread = threading.Thread(
-            target=self.heartbeat).start()
+    def sendAmplitudeEvent(self):
+        self.event_thread = threading.Thread(
+            target=self.amplitudeEventCall).start()
         return
 
-    def heartbeat(self):
-        starttime = time.time()
-        while True:
-            print("Heartbeat")
-            blenderAddonHeart = {
+    def amplitudeEventCall(self):
+        if self.eventCall == "heartbeat":
+            print("Sending Heartbeat")
+            #starttime = time.time()
+            # while True:
+            blenderHeartbeat = {
                 "events": [
                     {
                         "event_type": "thangs-breeze - addon heartbeat",
@@ -115,22 +117,12 @@ class ThangsFetcher():
                     }
                 ]
             }
-            postResponse = requests.post(self.ampURL, json=blenderAddonHeart)
-            time.sleep(600.0 - ((time.time() - starttime) % 600.0))
+            postResponse = requests.post(self.ampURL, json=blenderHeartbeat)
+            #time.sleep(600.0 - ((time.time() - starttime) % 600.0))
+            return
 
-    def get_total_results(self):
-        response = requests.get(
-            "https://thangs.com/api/models/v2/search-by-text?utm_source=blender&utm_medium=referral&utm_campaign=blender_extender&searchTerm="+self.query+"&fileTypes=stl%2Cgltf%2Cobj%2Cfbx%2Cglb%2Csldprt%2Cstep%2Cmtl%2Cdxf%2Cstp&scope=thangs")
-        if response.status_code != 200:
-            self.totalModels = 0
-            self.PageTotal = 0
-        else:
-            print("started counting results")
-            responseData = response.json()
-            items = responseData["results"]
-            self.totalModels = len(items)
-            self.PageTotal = math.ceil(self.totalModels/8)
-
+        elif self.eventCall == "results":
+            print("Sending Results Event")
             blenderSearchResults = {
                 "events": [
                     {
@@ -144,6 +136,71 @@ class ThangsFetcher():
             }
             postResponse = requests.post(
                 self.ampURL, json=blenderSearchResults)
+            return
+
+        elif self.eventCall == "startedSearch":
+            print("Sending Search Event")
+            blenderSearchStarted = {
+                "events": [
+                    {
+                        "event_type": "thangs-breeze - search started",
+                        "device_id": str(self.deviceId),
+                        "event_properties": {
+                            "searchTerm": str(self.query)
+                        }
+                    }
+                ]
+            }
+            postResponse = requests.post(
+                self.ampURL, json=blenderSearchStarted)
+            # Come back and add in what to do if getting something besides a 200 response code
+            self.failed = False
+            return
+
+        elif self.eventCall == "searchCompleted":
+            print("Sending Search Completed Event")
+            blenderSearchEnded = {
+                "events": [
+                    {
+                        "event_type": "thangs-breeze - search ended",
+                        "device_id": str(self.deviceId)
+                    }
+                ]
+            }
+            postResponse = requests.post(self.ampURL, json=blenderSearchEnded)
+            return
+
+        elif self.eventCall == "searchFailed":
+            print("Sending Search Failed Event")
+            blenderSearchFailed = {
+                "events": [
+                    {
+                        "event_type": "thangs-breeze - search failed",
+                        "device_id": str(self.deviceId)
+                    }
+                ]
+            }
+            postResponse = requests.post(self.ampURL, json=blenderSearchFailed)
+            self.failed = True
+            return
+        return
+
+    def get_total_results(self, response):
+        if response.status_code != 200:
+            self.totalModels = 0
+            self.PageTotal = 0
+        else:
+            print("started counting results")
+            responseData = response.json()
+            items = responseData["searchMetadata"]
+            self.totalModels = items["totalResults"]
+            if math.ceil(self.totalModels/8) > 99:
+                self.PageTotal = 99
+            else:
+                self.PageTotal = math.ceil(self.totalModels/8)
+
+            self.eventCall = "results"
+            self.sendAmplitudeEvent()
 
     def get_http_search(self):
         print("started Search")
@@ -163,7 +220,6 @@ class ThangsFetcher():
                 self.search_callback()
                 return
             else:
-                self.get_total_results()
                 self.PageNumber = 1
                 self.CurrentPage = 1
 
@@ -202,40 +258,17 @@ class ThangsFetcher():
 
         self.pcoll = self.preview_collections["main"]
 
-        blenderSearchStarted = {
-            "events": [
-                {
-                    "event_type": "thangs-breeze - search started",
-                    "device_id": str(self.deviceId),
-                    "event_properties": {
-                        "searchTerm": str(self.query)
-                    }
-                }
-            ]
-        }
-
-        postResponse = requests.post(self.ampURL, json=blenderSearchStarted)
-        # Come back and add in what to do if getting something besides a 200 response code
-
-        self.failed = False
+        self.eventCall = "startedSearch"
+        self.sendAmplitudeEvent()
 
         response = requests.get(
             "https://thangs.com/api/models/v2/search-by-text?page="+str(self.CurrentPage-1)+"&searchTerm="+self.query+"&pageSize=8&narrow=false&collapse=true&fileTypes=stl%2Cgltf%2Cobj%2Cfbx%2Cglb%2Csldprt%2Cstep%2Cmtl%2Cdxf%2Cstp&scope=thangs")
 
+        self.get_total_results(response)
+
         if response.status_code != 200:
-            print("search failed")
-
-            blenderSearchFailed = {
-                "events": [
-                    {
-                        "event_type": "thangs-breeze - search failed",
-                        "device_id": str(self.deviceId)
-                    }
-                ]
-            }
-            postResponse = requests.post(self.ampURL, json=blenderSearchFailed)
-
-            self.failed = True
+            self.eventCall = "searchFailed"
+            self.sendAmplitudeEvent()
 
         else:
             responseData = response.json()
@@ -292,18 +325,10 @@ class ThangsFetcher():
         if self.search_callback is not None:
             self.search_callback()
 
-        print("search completed")
+        print("Search Completed!")
 
-        blenderSearchEnded = {
-            "events": [
-                {
-                    "event_type": "thangs-breeze - search ended",
-                    "device_id": str(self.deviceId)
-                }
-            ]
-        }
-
-        postResponse = requests.post(self.ampURL, json=blenderSearchEnded)
+        self.eventCall = "searchCompleted"
+        self.sendAmplitudeEvent()
 
         return
 
