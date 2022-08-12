@@ -129,13 +129,13 @@ class addon_updater_install_popup(bpy.types.Operator):
     # if true, run clean install - ie remove all files before adding new
     # equivalent to deleting the addon and reinstalling, except the
     # updater folder/backup folder remains
-    clean_install = bpy.props.BoolProperty(
+    clean_install: bpy.props.BoolProperty(
         name="Clean install",
         description="If enabled, completely clear the addon's folder before installing new update, creating a fresh install",
         default=False,
         options={'HIDDEN'}
     )
-    ignore_enum = bpy.props.EnumProperty(
+    ignore_enum: bpy.props.EnumProperty(
         name="Process update",
         description="Decide to install, ignore, or defer new addon update",
         items=[
@@ -272,7 +272,7 @@ class addon_updater_update_now(bpy.types.Operator):
     # if true, run clean install - ie remove all files before adding new
     # equivalent to deleting the addon and reinstalling, except the
     # updater folder/backup folder remains
-    clean_install = bpy.props.BoolProperty(
+    clean_install: bpy.props.BoolProperty(
         name="Clean install",
         description="If enabled, completely clear the addon's folder before installing new update, creating a fresh install",
         default=False,
@@ -351,7 +351,7 @@ class addon_updater_update_target(bpy.types.Operator):
     # if true, run clean install - ie remove all files before adding new
     # equivalent to deleting the addon and reinstalling, except the
     # updater folder/backup folder remains
-    clean_install = BoolProperty(
+    clean_install: BoolProperty(
         name="Clean install",
         description="If enabled, completely clear the addon's folder before installing new update, creating a fresh install",
         default=False,
@@ -408,7 +408,7 @@ class addon_updater_install_manually(bpy.types.Operator):
     bl_description = "Proceed to manually install update"
     bl_options = {'REGISTER', 'INTERNAL'}
 
-    error = bpy.props.StringProperty(
+    error: bpy.props.StringProperty(
         name="Error Occurred",
         default="",
         options={'HIDDEN'}
@@ -472,7 +472,7 @@ class addon_updater_updated_successful(bpy.types.Operator):
     bl_description = "Update installation response"
     bl_options = {'REGISTER', 'INTERNAL', 'UNDO'}
 
-    error = bpy.props.StringProperty(
+    error: bpy.props.StringProperty(
         name="Error Occurred",
         default="",
         options={'HIDDEN'}

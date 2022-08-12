@@ -33,7 +33,7 @@ import socket
 bl_info = {
     "name": "Thangs Model Search",
     "author": "Thangs",
-    "version": (0, 1, 4),
+    "version": (0, 1, 3),
     "blender": (3, 2, 0),
     "location": "VIEW 3D > Sidebar > Thangs Search",
     "description": "Import Thangs Models (.glb, .usdz, .stl)",
