@@ -33,12 +33,12 @@ import socket
 bl_info = {
     "name": "Thangs Model Search",
     "author": "Thangs",
-    "version": (0, 1, 4),
+    "version": (0, 1, 3),
     "blender": (3, 2, 0),
     "location": "VIEW 3D > Sidebar > Thangs Search",
     "description": "Import Thangs Models (.glb, .usdz, .stl)",
     "warning": "",
-    "doc_url": "https://github.com/RandyHucker/thangs-breeze",
+    "doc_url": "https://https://github.com/RandyHucker/thangs-blender-addon",
     "category": "Import/Export",
 }
 
@@ -192,7 +192,7 @@ class SearchButton(bpy.types.Operator):
 class LastPageChange(bpy.types.Operator):
     """Go to Last Page"""
     bl_idname = "lastpage.thangs"
-    bl_label = "Last Page"
+    bl_label = " Last Page"
 
     def execute(self, context):
         LastPage()
@@ -202,7 +202,7 @@ class LastPageChange(bpy.types.Operator):
 class IncPageChange(bpy.types.Operator):
     """Go to Next Page"""
     bl_idname = "incpage.thangs"
-    bl_label = "Next Page"
+    bl_label = " Next Page"
 
     def execute(self, context):
         IncPage()
@@ -212,7 +212,7 @@ class IncPageChange(bpy.types.Operator):
 class DecPageChange(bpy.types.Operator):
     """Go to Previous Page"""
     bl_idname = "decpage.thangs"
-    bl_label = "Previous Page"
+    bl_label = " Previous Page"
 
     def execute(self, context):
         DecPage()
@@ -262,25 +262,6 @@ icons_dir = os.path.join(os.path.dirname(__file__), "icons")
 icons_dict.load("ThangsT", os.path.join(icons_dir, "T.png"), 'IMAGE')
 
 
-# class Thangs_OT_view(Operator):
-#     """View Search Results"""
-
-#     bl_idname = "thangs.view_mode"
-#     bl_label = "View"
-#     bl_description = " "
-#     bl_options = {'REGISTER', 'INTERNAL'}
-
-#     next_mode: StringProperty()
-
-#     def execute(self, context):
-#         print("Changed Mode to VIEW")
-#         global thangs_ui_mode
-#         self.next_mode == 'VIEW'
-#         thangs_ui_mode = self.next_mode
-
-#         context.area.tag_redraw()
-#         return {'FINISHED'}
-
 class THANGS_OT_search_invoke(Operator):
     """Search for Query"""
 
@@ -294,17 +275,6 @@ class THANGS_OT_search_invoke(Operator):
     @classmethod
     def poll(cls, context):
         return context.active_object is not None
-
-    # def invoke(self, context, event):
-    #     global thangs_ui_mode
-    #     # If adding a new plant, start off with the defaults
-    #     if thangs_ui_mode == 'SEARCH':
-    #         self.next_mode == 'VIEW'
-    #     else:
-    #         self.next_mode == 'SEARCH'
-    #     thangs_ui_mode = self.next_mode
-    #     context.area.tag_redraw()
-    #     return {'RUNNING_MODAL'}
 
     def execute(self, context):
         if fetcher.searching:
@@ -327,8 +297,6 @@ class THANGS_PT_model_display(bpy.types.Panel):
     bl_region_type = "UI"
     bl_category = "Thangs Search"
 
-    #fetcher.context = bpy.context.window
-
     def next_mode(self, op):
         # modes: ADD, EDIT, SELECT, SELECT_ADD, VIEW
         ops = ['SEARCH', 'VIEW']
@@ -350,7 +318,6 @@ class THANGS_PT_model_display(bpy.types.Panel):
         wm = context.window_manager
 
         layout = self.layout
-        #layout.ui_units_x = 8.5
 
         if fetcher.searching == True:
             layout.active = False
@@ -407,67 +374,60 @@ class THANGS_PT_model_display(bpy.types.Panel):
                 row = layout.row()
                 row.ui_units_y = .9
                 row.scale_y = .8
-                row.ui_units_x = 20
-                row.scale_x = 50
+                row.ui_units_x = 1
+                row.scale_x = 1
 
-                row.separator(factor=0)
-
-                # pagination = row.column_flow(columns=3, align=True)
-                # if fetcher.PageTotal == 1:
-                #     pagination.active = False
-                # pagination.scale_x = 1
-                # pagination.ui_units_y = .1
-                # pagination.scale_y = 1.2
+                # row.separator(factor=0)
 
                 column1 = row.column(align=True)
                 if fetcher.PageNumber == 1:
                     column1.active = False
 
-                column1.scale_x = 100
+                column1.scale_x = 1
                 column1.ui_units_y = .5
-                column1.ui_units_x = 100
+                column1.ui_units_x = 5
                 column1.scale_y = 1.2
 
                 column2 = row.column(align=True)
                 if fetcher.PageNumber == 1:
                     column2.active = False
-                column2.scale_x = 10
+                column2.scale_x = 1
                 column2.ui_units_y = .1
-                column2.ui_units_x = 20
+                column2.ui_units_x = 5
                 column2.scale_y = 1.2
 
                 column3 = row.column(align=True)
-                column3.scale_x = 10
+                column3.scale_x = 1
                 column3.ui_units_y = .1
-                column3.ui_units_x = 20
+                column3.ui_units_x = 5
                 column3.scale_y = 1.2
 
                 column4 = row.column(align=True)
                 if fetcher.PageNumber == fetcher.PageTotal:
                     column4.active = False
 
-                column4.scale_x = 10
+                column4.scale_x = 1
                 column4.ui_units_y = .1
-                column4.ui_units_x = 20
+                column4.ui_units_x = 5
                 column4.scale_y = 1.2
 
                 column5 = row.column(align=True)
                 if fetcher.PageNumber == fetcher.PageTotal:
                     column5.active = False
 
-                column5.scale_x = 10
+                column5.scale_x = 1
                 column5.ui_units_y = .1
-                column5.ui_units_x = 20
+                column5.ui_units_x = 5
                 column5.scale_y = 1.2
 
                 column1.operator("firstpage.thangs", icon='REW')
                 column2.operator("decpage.thangs", icon='PLAY_REVERSE')
-                column3.label(text=" "+str(fetcher.PageNumber) +
+                column3.label(text=""+str(fetcher.PageNumber) +
                               "/"+str(fetcher.PageTotal)+"")
                 column4.operator("incpage.thangs", icon='PLAY')
                 column5.operator("lastpage.thangs", icon='FF')
 
-                row.separator(factor=0)
+                # row.separator(factor=0)
 
                 row = layout.row()
                 o = row.operator("thangs.search_invoke", icon='CANCEL')
@@ -498,14 +458,7 @@ class THANGS_PT_model_display(bpy.types.Panel):
             o.next_mode = self.next_mode('SEARCH')
 
     def drawSearch(self, context):
-        # not searching
-        # if len(fetcher.enumItems) > 0:
-        # show the results
-        #    return
-        # show the search box...
         layout = self.layout
-
-        # print(fetcher.enumItems)
 
         wm = context.window_manager
 
@@ -525,9 +478,6 @@ class THANGS_PT_model_display(bpy.types.Panel):
         row.prop(context.scene, "thangs_model_search")
 
         row.scale_x = .18
-        #row = layout.row()
-        #o = row.operator("thangs.search_invoke", icon='VIEWZOOM')
-        #o.next_mode = self.next_mode('VIEW')
 
     def draw(self, context):
         if fetcher.thangs_ui_mode == "VIEW":
@@ -540,7 +490,6 @@ preview_collections = fetcher.preview_collections
 
 
 def startSearch(self, value):
-    print("started Search function")
     queryText = bpy.context.scene.thangs_model_search
     fetcher.search(query=queryText)
 
@@ -603,10 +552,9 @@ def register():
     )
 
     print(socket.gethostname())
-    sysName = socket.gethostname().split(".")[0]
-    fetcher.deviceId = sysName
-
-    fetcher.makeheartbeat()
+    fetcher.deviceId = socket.gethostname().split(".")[0]
+    fetcher.eventCall = "heartbeat"
+    fetcher.sendAmplitudeEvent()
 
     addon_updater_ops.register(bl_info)
 
