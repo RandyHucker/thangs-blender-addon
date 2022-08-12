@@ -19,8 +19,7 @@ Thangs-Blender-Addon provides an integrated search function into blender that al
   - [Blender](http://www.blender.org/) 2.93 or later. The add-on is known to run with [Blender 3.22](https://www.blender.org/download/).
 - Installation options
   - From a release Zip file (most users)
-    - In releases > assets, the thangs-breeze.zip is the desired file.
-    - Download the latest release zip file from the [Releases Tab](/../../releases/)
+    - Download the latest release zip file [HERE](https://github.com/RandyHucker/thangs-blender-addon/releases/download/v0_1_4/thangs-blender-addon.zip) or from the [Releases Tab](/../../releases/)
     - Start Blender
     - Choose `Edit -> Preferences -> Add-ons -> Install`
     - Select the zip file and click `Install Add-on`
