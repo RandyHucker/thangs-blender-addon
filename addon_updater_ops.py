@@ -67,7 +67,7 @@ except Exception as e:
 # Must declare this before classes are loaded
 # otherwise the bl_idname's will not match and have errors.
 # Must be all lowercase and no spaces
-updater.addon = "thangs_breeze"
+updater.addon = "thangs_blender"
 
 
 # -----------------------------------------------------------------------------
@@ -1356,12 +1356,12 @@ def register(bl_info):
     updater.user = "RandyHucker"
 
     # choose your own repository, must match git name
-    updater.repo = "thangs-breeze"
+    updater.repo = "thangs-blender-addon"
 
     # updater.addon = # define at top of module, MUST be done first
 
     # Website for manual addon download, optional but recommended to set
-    updater.website = "https://github.com/RandyHucker/thangs-breeze/"
+    updater.website = "https://github.com/RandyHucker/thangs-blender-addon/"
 
     # Addon subfolder path
     # "sample/path/to/addon"
