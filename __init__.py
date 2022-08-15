@@ -237,7 +237,7 @@ class ThangsLink(bpy.types.Operator):
 
     def execute(self, context):
         webbrowser.open("https://thangs.com/search/"+fetcher.query +
-                        "/?utm_source=blender&utm_medium=referral&utm_campaign=blender_extender&scope=thangs", new=0, autoraise=True)
+                        "?utm_source=blender&utm_medium=referral&utm_campaign=blender_extender&fileTypes=stl%2Cgltf%2Cobj%2Cfbx%2Cglb%2Csldprt%2Cstep%2Cmtl%2Cdxf%2Cstp&scope=thangs", new=0, autoraise=True)
         return {'FINISHED'}
 
 
