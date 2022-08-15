@@ -32,7 +32,7 @@ Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.ble
 
 ### To Search
 
-To search using the addon, open the "Tools" tab in the layout view by pressing 'N' or clicking the small horizontal arrow in the top right near the RGB XYZ axis spindal, click on the search bar, type something in, and click 'Enter'! This will load all the models available under your search conditions! To reopen the results, just press enter on the search bar again.
+To search using the addon, open the sidebar/"Tools" tab in the View 3D tab by pressing 'N' or clicking the small horizontal arrow in the top right near the RGB XYZ axis spindal, click on the search bar, type something in, and click 'Enter'! This will load all the models available under your search conditions! To reopen the results, just press enter on the search bar again.
 
 ### Continue on Thangs.com
 
