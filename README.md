@@ -16,7 +16,7 @@ Thangs-Blender-Addon provides an integrated search function into blender that al
 ## Install
 
 - Download and install the prerequisites
-  - [Blender](http://www.blender.org/) 2.93 or later. The add-on is known to run with [Blender 3.22](https://www.blender.org/download/).
+  - [Blender](http://www.blender.org/) 2.93 or later. The add-on is known to run with [Blender 3.2.0](https://www.blender.org/download/).
 - Installation options
   - From a release Zip file (most users)
     - Download the latest release zip file [HERE](https://github.com/RandyHucker/thangs-blender-addon/releases/download/v0_1_4/thangs-blender-addon.zip) or from the [Releases Tab](/../../releases/)
