@@ -2,13 +2,13 @@
 
 ## Thangs' Add-on for Blender
 
-Thangs-Blender-Addon is a [Blender](http://www.blender.org) Add-on to search and preview [Thangs](https://thangs.com/) wide variety and quanity of models.
+Thangs-Blender-Addon is a [Blender](http://www.blender.org) Add-on to search and preview [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github) wide variety and quantity of models.
 
-Thangs-Blender-Addon is an open source community developed project using the Thangs.com API.
+Thangs-Blender-Addon is an open-source community-developed project using the Thangs.com API.
 
 ## Features
 
-Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.blender.org) that allows you to search for prebuilt models/meshes so that you can save time in your creation workflow procress. You can then navigate to [Thangs](https://thangs.com/) and import your desired model. The viewport can display previews of all the models found on Thangs in the add-on.
+Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.blender.org) that allows you to search for prebuilt models/meshes so that you can save time in your creative workflow process. You can then navigate to [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github) and import your desired model. The viewport can display previews of all the models found on Thangs in the add-on.
 
 ![Thangs](https://user-images.githubusercontent.com/105221281/183229686-0c23f295-02a0-422d-8e5a-0f75dccf313d.gif)
 
@@ -32,7 +32,7 @@ Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.ble
 
 ### To Search
 
-To search using the addon, open the sidebar/"Tools" tab in the View 3D tab by pressing 'N' or clicking the small horizontal arrow in the top right near the RGB XYZ axis spindal, click on the search bar, type something in, and click 'Enter'! This will load all the models available under your search conditions! To reopen the results, just press enter on the search bar again.
+To search using the addon, open the sidebar/"Tools" tab in the View 3D tab by pressing 'N' or clicking the small horizontal arrow in the top right near the RGB XYZ axis spindle, click on the search bar, type something in, and click 'Enter'! This will load all the models available under your search conditions! To reopen the results, just press enter on the search bar again.
 
 ### Continue on Thangs.com
 
