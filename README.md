@@ -2,7 +2,7 @@
 
 ## Thangs' Add-on for Blender
 
-As a good addition to the Blender model sites and Blender catalogs you already use, Thangs-Blender-Addon is a [Blender](http://www.blender.org) Add-on to search, preview, and download [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github)' wide variety/quantity of compatible free blender models.
+Thangs-Blender-Addon is an addition to the Blender model sites and Blender catalogs you already use! Thangs-Blender-Addon is a [Blender](http://www.blender.org) Add-on to search, preview, and download [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github)' wide variety/quantity of compatible free blender models.
 
 Thangs-Blender-Addon is an open-source community-developed project using the Thangs.com API.
 
