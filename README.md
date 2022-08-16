@@ -36,7 +36,7 @@ To search using the addon, open the sidebar/"Tools" tab in the View 3D tab by pr
 
 ### Continue on Thangs.com
 
-To navigate to [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github).com and continue your search on our site, click the button in the top right corner of the preview pop-up that has our logo on it. This is a good place to use [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github) as a normal Blender model site/catalog!
+To navigate to [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github).com and continue your search on our site, click the button in the top right corner of the preview pop-up that has our logo on it. This allows you to use [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github) as a normal Blender model site/catalog!
 
 ## Report an Issue
 
