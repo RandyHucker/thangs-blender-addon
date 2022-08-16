@@ -2,13 +2,13 @@
 
 ## Thangs' Add-on for Blender
 
-Thangs-Blender-Addon is a [Blender](http://www.blender.org) Add-on to search, preview, and download [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github)' wide variety/quantity of compatible free blender models.
+As a good addition to the Blender model sites and Blender catalogs you already use, Thangs-Blender-Addon is a [Blender](http://www.blender.org) Add-on to search, preview, and download [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github)' wide variety/quantity of compatible free blender models.
 
 Thangs-Blender-Addon is an open-source community-developed project using the Thangs.com API.
 
 ## Features
 
-Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.blender.org) that allows you to search for free prebuilt models/meshes so that you can save time in your creative workflow process. You can then navigate to [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github) and import your desired model. A good addition to the Blender catalogs and Blender model sites you already use! The viewport can display previews of all the models found on Thangs in the add-on.
+Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.blender.org) that allows you to search for free prebuilt models/meshes so that you can save time in your creative workflow process. You can then navigate to [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github) and import your desired model. The viewport can display previews of all the models found on Thangs in the add-on.
 
 ![Thangs](https://user-images.githubusercontent.com/105221281/183229686-0c23f295-02a0-422d-8e5a-0f75dccf313d.gif)
 
