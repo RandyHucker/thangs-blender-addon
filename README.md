@@ -20,6 +20,7 @@ Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.ble
 - Installation options
   - From a release Zip file (most users)
     - Download the latest release zip file [HERE](https://bit.ly/thangsblenderaddon) or from the [Releases Tab](/../../releases/)
+    - Do NOT extract the ZIP! (You install it from the ZIP :))
     - Start Blender
     - Choose `Edit -> Preferences -> Add-ons -> Install`
       ![My project-1](https://user-images.githubusercontent.com/105221281/185752282-f77722a5-5dcd-4cc1-a168-0993c55f40e1.jpg)
