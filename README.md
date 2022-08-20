@@ -27,7 +27,8 @@ Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.ble
     - Select the zip file and click `Install Add-on`
       ![My project-1 (1)](https://user-images.githubusercontent.com/105221281/185752291-a803d769-f22c-4b85-8183-4ef1cae40dbf.jpg)
     - Enable the add-on by toggling the checkbox
-      ![My project-1 (2)](https://user-images.githubusercontent.com/105221281/185752314-edbb50f2-1ff6-4b0c-a697-3c874f889261.jpg)
+      ![My project-1](https://user-images.githubusercontent.com/105221281/185752810-7e5cd2f4-85e1-4959-852b-d8bdda87237a.jpg)
+
 - Thangs-Blender-Addon is now ready to use (see Usage below!)
 
 ![Thangs-Breeze_3](https://user-images.githubusercontent.com/105221281/184414452-2c7913d5-4a20-47ca-a31b-125a21067523.gif)
@@ -37,6 +38,8 @@ Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.ble
 ### To Search
 
 To search using the addon, open the sidebar/"Tools" tab in the View 3D tab by pressing 'N' or clicking the small horizontal arrow in the top right near the RGB XYZ axis spindle, click on the search bar, type something in, and click 'Enter'! This will load all the models available under your search conditions! To reopen the results, just press enter on the search bar again.
+  ![My project-1 (1)](https://user-images.githubusercontent.com/105221281/185753050-098b0627-aa6b-4769-bd4c-7777b0edbc1a.jpg)
+
 
 ### Continue on Thangs.com
 
