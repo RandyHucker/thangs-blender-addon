@@ -22,8 +22,11 @@ Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.ble
     - Download the latest release zip file [HERE](https://bit.ly/thangsblenderaddon) or from the [Releases Tab](/../../releases/)
     - Start Blender
     - Choose `Edit -> Preferences -> Add-ons -> Install`
+      ![My project-1](https://user-images.githubusercontent.com/105221281/185752282-f77722a5-5dcd-4cc1-a168-0993c55f40e1.jpg)
     - Select the zip file and click `Install Add-on`
+      ![My project-1 (1)](https://user-images.githubusercontent.com/105221281/185752291-a803d769-f22c-4b85-8183-4ef1cae40dbf.jpg)
     - Enable the add-on by toggling the checkbox
+      ![My project-1 (2)](https://user-images.githubusercontent.com/105221281/185752314-edbb50f2-1ff6-4b0c-a697-3c874f889261.jpg)
 - Thangs-Blender-Addon is now ready to use (see Usage below!)
 
 ![Thangs-Breeze_3](https://user-images.githubusercontent.com/105221281/184414452-2c7913d5-4a20-47ca-a31b-125a21067523.gif)
