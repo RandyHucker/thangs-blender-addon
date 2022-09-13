@@ -33,13 +33,15 @@ import socket
 bl_info = {
     "name": "Thangs Model Search",
     "author": "Thangs",
-    "version": (0, 1, 4),
+    "version": (0, 1, 5),
     "blender": (3, 2, 0),
-    "location": "VIEW 3D > Sidebar > Thangs Search",
-    "description": "Import Thangs Models (.glb, .usdz, .stl)",
+    "location": "VIEW 3D > Tools > Thangs Search",
+    "description": "Browse and download free 3D models",
     "warning": "",
-    "doc_url": "https://github.com/RandyHucker/thangs-blender-addon",
-    "category": "Import/Export",
+    "support": "COMMUNITY",
+    "wiki_url": "https://github.com/RandyHucker/thangs-blender-addon",
+    "tracker_url": "https://github.com/RandyHucker/thangs-blender-addon/issues/new/choose",
+    "category": "Import/Export"
 }
 
 
@@ -272,9 +274,9 @@ class THANGS_OT_search_invoke(Operator):
 
     next_mode: StringProperty()
 
-    @classmethod
-    def poll(cls, context):
-        return context.active_object is not None
+    # @classmethod
+    # def poll(cls, context):
+    #    return context.active_object is not None
 
     def execute(self, context):
         if fetcher.searching:
@@ -364,6 +366,14 @@ class THANGS_PT_model_display(bpy.types.Panel):
 
                     cell = grid.column().box()
                     cell.template_icon(icon_value=model[3], scale=7)
+
+                    col = cell.box().column(align=True)
+                    row = col.row()
+                    row.label(text="{}".format(model[5]), icon='USER')
+                    # row = col.row()
+                    # row.label(text="{}".format(model[6]), icon='TEXT')
+                    row = col.row()
+                    row.label(text="{}".format(model[7]), icon='FILEBROWSER')
 
                     for x in range(0, len(fetcher.modelInfo)):
                         if fetcher.modelInfo[x][0] == modelTitle:

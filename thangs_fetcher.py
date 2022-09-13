@@ -34,6 +34,9 @@ class ThangsFetcher():
         self.filePaths = []
         self.modelInfo = []
         self.enumItems = []
+        self.licenses = []
+        self.creators = []
+        self.filetype = []
         self.totalModels = 0
         self.Counter = 0
         self.pcoll = ""
@@ -234,6 +237,9 @@ class ThangsFetcher():
         self.filePaths.clear()
         self.modelInfo.clear()
         self.enumItems.clear()
+        self.licenses.clear()
+        self.creators.clear()
+        self.filetype.clear()
 
         self.Directory = self.query
         # Added
@@ -276,12 +282,20 @@ class ThangsFetcher():
 
             for item in items:
                 print("Getting Item")
-                thumbnailAPIURL = item["thumbnailUrl"]
-                thumbnailURL = requests.head(thumbnailAPIURL)
-                thumbnail = thumbnailURL.headers["Location"]
+                if len(item["thumbnails"]) > 0:
+                    thumbnail = item["thumbnails"][0]
+                else:
+                    thumbnailAPIURL = item["thumbnailUrl"]
+                    thumbnailURL = requests.head(thumbnailAPIURL)
+                    thumbnail = thumbnailURL.headers["Location"]
                 self.thumbnails.append(thumbnail)
                 modelId = item["modelId"]
                 self.modelIds.append(modelId)
+
+                self.creators.append(item["ownerUsername"])
+                # self.licenses.append(item["license"])
+                self.licenses.append("LCs Coming Soon!")
+                self.filetype.append(item["originalFileType"])
 
                 modelTitle = item["modelTitle"]
                 self.modelTitles.append(modelTitle)
@@ -308,7 +322,7 @@ class ThangsFetcher():
                     self.modelIds[i], filepath, 'IMAGE')
 
             self.enumItems.append(
-                (self.modelTitles[i], self.modelIds[i], "", thumb.icon_id, i))
+                (self.modelTitles[i], self.modelIds[i], "", thumb.icon_id, i, self.creators[i], self.licenses[i], self.filetype[i]))
 
             self.Counter = self.Counter + 1
 
