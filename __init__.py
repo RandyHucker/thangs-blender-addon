@@ -18,8 +18,10 @@ import bpy.utils.previews
 from urllib.request import urlopen
 import os
 from .thangs_fetcher import ThangsFetcher
+from .thangs_events import ThangsEvents
 from . import addon_updater_ops
 import socket
+import platform
 
 
 bl_info = {
@@ -116,6 +118,7 @@ def on_complete_search():
 
 
 fetcher = ThangsFetcher(callback=on_complete_search)
+amplitude = ThangsEvents()
 
 #URLlist = []
 ButtonSearch = "Search"
@@ -232,6 +235,7 @@ class ThangsLink(bpy.types.Operator):
     bl_label = "Redirect to Thangs"
 
     def execute(self, context):
+        amplitude.sendAmplitudeEvent("toThangs")
         webbrowser.open("https://thangs.com/search/"+fetcher.query +
                         "?utm_source=blender&utm_medium=referral&utm_campaign=blender_extender&fileTypes=stl%2Cgltf%2Cobj%2Cfbx%2Cglb%2Csldprt%2Cstep%2Cmtl%2Cdxf%2Cstp&scope=thangs", new=0, autoraise=True)
         return {'FINISHED'}
@@ -626,10 +630,10 @@ def register():
         # update=enter_Search
     )
 
-    print(socket.gethostname())
-    fetcher.deviceId = socket.gethostname().split(".")[0]
-    fetcher.eventCall = "heartbeat"
-    fetcher.sendAmplitudeEvent()
+    amplitude.deviceId = socket.gethostname().split(".")[0]
+    amplitude.devideOS = platform.system()
+    amplitude.deviceVer = platform.release()
+    amplitude.sendAmplitudeEvent("heartbeat")
 
     addon_updater_ops.register(bl_info)
 
