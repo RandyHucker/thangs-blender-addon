@@ -1,14 +1,11 @@
 import threading
-import time
 import requests
 from urllib.request import urlopen
 import urllib.request
 import urllib.parse
-import importlib
 import threading
 import os
 import math
-import time
 import bpy
 from bpy.types import WindowManager
 import bpy.utils.previews
@@ -34,9 +31,19 @@ class ThangsFetcher():
         self.filePaths = []
         self.modelInfo = []
         self.enumItems = []
+        self.enumModels1 = []
+        self.enumModels2 = []
+        self.enumModels3 = []
+        self.enumModels4 = []
+        self.enumModels5 = []
+        self.enumModels6 = []
+        self.enumModels7 = []
+        self.enumModels8 = []
         self.licenses = []
         self.creators = []
         self.filetype = []
+        self.length = []
+        self.thumbnailNumbers = []
         self.totalModels = 0
         self.Counter = 0
         self.pcoll = ""
@@ -54,6 +61,9 @@ class ThangsFetcher():
         self.search_thread = None
         self.event_thread = None
         self.search_callback = callback
+        # self.pcollModel = ""
+        # self.preview_collection = {}
+        # self.res = []
         pass
 
     def search(self, query):
@@ -84,7 +94,10 @@ class ThangsFetcher():
         self.filePaths = []
         self.modelInfo = []
         self.enumItems = []
+        self.enumModels = []
         self.totalModels = 0
+        self.i = 0
+        self.x = 0
         self.Counter = 0
         self.pcoll = ""
         self.PageNumber = 1
@@ -193,7 +206,7 @@ class ThangsFetcher():
             self.totalModels = 0
             self.PageTotal = 0
         else:
-            print("started counting results")
+            print("Started Counting Results")
             responseData = response.json()
             items = responseData["searchMetadata"]
             self.totalModels = items["totalResults"]
@@ -206,7 +219,7 @@ class ThangsFetcher():
             self.sendAmplitudeEvent()
 
     def get_http_search(self):
-        print("started Search")
+        print("Started Search")
         self.searching = True
 
         self.Directory = self.query
@@ -237,9 +250,19 @@ class ThangsFetcher():
         self.filePaths.clear()
         self.modelInfo.clear()
         self.enumItems.clear()
+        self.enumModels1.clear()
+        self.enumModels2.clear()
+        self.enumModels3.clear()
+        self.enumModels4.clear()
+        self.enumModels5.clear()
+        self.enumModels6.clear()
+        self.enumModels7.clear()
+        self.enumModels8.clear()
         self.licenses.clear()
         self.creators.clear()
         self.filetype.clear()
+        self.length.clear()
+        self.thumbnailNumbers.clear()
 
         self.Directory = self.query
         # Added
@@ -258,6 +281,14 @@ class ThangsFetcher():
         self.pcoll = bpy.utils.previews.new()
         self.pcoll.Model_dir = ""
         self.pcoll.Model = ()
+        self.pcoll.ModelView1 = ()
+        self.pcoll.ModelView2 = ()
+        self.pcoll.ModelView3 = ()
+        self.pcoll.ModelView4 = ()
+        self.pcoll.ModelView5 = ()
+        self.pcoll.ModelView6 = ()
+        self.pcoll.ModelView7 = ()
+        self.pcoll.ModelView8 = ()
         self.pcoll.Model_page = self.CurrentPage
 
         self.preview_collections["main"] = self.pcoll
@@ -279,9 +310,8 @@ class ThangsFetcher():
         else:
             responseData = response.json()
             items = responseData["results"]  # Each model result is X
-
+            self.i = 0
             for item in items:
-                print("Getting Item")
                 if len(item["thumbnails"]) > 0:
                     thumbnail = item["thumbnails"][0]
                 else:
@@ -292,43 +322,129 @@ class ThangsFetcher():
                 modelId = item["modelId"]
                 self.modelIds.append(modelId)
 
-                self.creators.append(item["ownerUsername"])
-                # self.licenses.append(item["license"])
-                self.licenses.append("LCs Coming Soon!")
-                self.filetype.append(item["originalFileType"])
-
                 modelTitle = item["modelTitle"]
                 self.modelTitles.append(modelTitle)
                 product_url = item["attributionUrl"]
 
-                thumbnail = thumbnail.replace("https", "http", 1)
-
-                filePath = urllib.request.urlretrieve(thumbnail)
-                self.filePaths.append(filePath[0])
-
                 self.modelInfo.append(
                     tuple([modelTitle, product_url, modelId]))
 
-        self.Counter = 0
-        for i, filePath in enumerate(self.filePaths):
-            # generates a thumbnail preview for a file.
-            filepath = os.path.join(self.modelIds[i], filePath)
+                thumbnail = thumbnail.replace("https", "http", 1)
 
-            if self.modelTitles[i] in filepath:
+                filePath = urllib.request.urlretrieve(thumbnail)
+
+                filepath = os.path.join(modelId, filePath[0])
+
+                thumb = self.pcoll.load(modelId, filepath, 'IMAGE')
+
+                self.filePaths.append(filePath[0])
+
+                self.thumbnailNumbers.append(thumb.icon_id)
+
                 self.enumItems.append(
-                    (self.modelTitles[i], self.modelIds[i], "", thumb.icon_id, i))
-            else:
-                thumb = self.pcoll.load(
-                    self.modelIds[i], filepath, 'IMAGE')
+                    (modelTitle, modelId, item["ownerUsername"], "LCs Coming Soon!", item["originalFileType"]))
+                z = 0
+                if self.i == 0:
+                    self.enumModels1.append(
+                        (modelId, modelTitle, "", thumb.icon_id, z))
 
-            self.enumItems.append(
-                (self.modelTitles[i], self.modelIds[i], "", thumb.icon_id, i, self.creators[i], self.licenses[i], self.filetype[i]))
+                elif self.i == 1:
+                    self.enumModels2.append(
+                        (modelId, modelTitle, "", thumb.icon_id, z))
 
-            self.Counter = self.Counter + 1
+                elif self.i == 2:
+                    self.enumModels3.append(
+                        (modelId, modelTitle, "", thumb.icon_id, z))
+
+                elif self.i == 3:
+                    self.enumModels4.append(
+                        (modelId, modelTitle, "", thumb.icon_id, z))
+
+                elif self.i == 4:
+                    self.enumModels5.append(
+                        (modelId, modelTitle, "", thumb.icon_id, z))
+
+                elif self.i == 5:
+                    self.enumModels6.append(
+                        (modelId, modelTitle, "", thumb.icon_id, z))
+
+                elif self.i == 6:
+                    self.enumModels7.append(
+                        (modelId, modelTitle, "", thumb.icon_id, z))
+
+                else:
+                    self.enumModels8.append(
+                        (modelId, modelTitle, "", thumb.icon_id, z))
+
+                if len(item["parts"]) > 0:
+                    parts = item["parts"]
+                    self.x = z
+                    for part in parts:
+                        ModelTitle = part["modelFileName"]
+                        thumbnailAPIURL = part["thumbnailUrl"]
+                        thumbnailURL = requests.head(thumbnailAPIURL)
+                        thumbnail = thumbnailURL.headers["Location"]
+                        thumbnail = thumbnail.replace("https", "http", 1)
+                        filePath = urllib.request.urlretrieve(thumbnail)
+                        filePath = filePath[0]
+                        modelID = part["modelId"]
+                        filepath = os.path.join(modelID, filePath)
+                        thumb = self.pcoll.load(modelID, filepath, 'IMAGE')
+                        if self.i == 0:
+                            self.enumModels1.append(
+                                (modelID, ModelTitle, "", thumb.icon_id, self.x+1))
+
+                        elif self.i == 1:
+                            self.enumModels2.append(
+                                (modelID, ModelTitle, "", thumb.icon_id, self.x+1))
+
+                        elif self.i == 2:
+                            self.enumModels3.append(
+                                (modelID, ModelTitle, "", thumb.icon_id, self.x+1))
+
+                        elif self.i == 3:
+                            self.enumModels4.append(
+                                (modelID, ModelTitle, "", thumb.icon_id, self.x+1))
+
+                        elif self.i == 4:
+                            self.enumModels5.append(
+                                (modelID, ModelTitle, "", thumb.icon_id, self.x+1))
+
+                        elif self.i == 5:
+                            self.enumModels6.append(
+                                (modelID, ModelTitle, "", thumb.icon_id, self.x+1))
+
+                        elif self.i == 6:
+                            self.enumModels7.append(
+                                (modelID, ModelTitle, "", thumb.icon_id, self.x+1))
+
+                        else:
+                            self.enumModels8.append(
+                                (modelId, ModelTitle, "", thumb.icon_id, self.x+1))
+                        self.x = self.x + 1
+                self.i = self.i + 1
+
+        self.length.append(len(self.enumModels1))
+        self.length.append(len(self.enumModels2))
+        self.length.append(len(self.enumModels3))
+        self.length.append(len(self.enumModels4))
+        self.length.append(len(self.enumModels5))
+        self.length.append(len(self.enumModels6))
+        self.length.append(len(self.enumModels7))
+        self.length.append(len(self.enumModels8))
 
         self.pcoll.Model = self.enumItems
+        self.pcoll.ModelView1 = self.enumModels1
+        self.pcoll.ModelView2 = self.enumModels2
+        self.pcoll.ModelView3 = self.enumModels3
+        self.pcoll.ModelView4 = self.enumModels4
+        self.pcoll.ModelView5 = self.enumModels5
+        self.pcoll.ModelView6 = self.enumModels6
+        self.pcoll.ModelView7 = self.enumModels7
+        self.pcoll.ModelView8 = self.enumModels8
         self.pcoll.Model_dir = self.Directory
         # Added
+
         self.pcoll.Model_page = self.CurrentPage
 
         self.searching = False
@@ -345,18 +461,3 @@ class ThangsFetcher():
         self.sendAmplitudeEvent()
 
         return
-
-
-# if __name__ == "__main__":
-#     tf = ThangsFetcher()
-#     tf.CurrentPage = 2
-#     tf.search("cat")
-#     while tf.searching:
-#         print("searching...")
-#         time.sleep(1)
-#     for x in range(len(tf.modelInfo)):
-#         print("results:", tf.modelInfo[x][0])
-#     print(tf.modelTitles)
-#     print(len(tf.modelTitles))
-#     # print("https://thangs.com/api/models/v2/search-by-text?page="+str(tf.CurrentPage-1) +
-#     #      "&searchTerm="+tf.query+"&pageSize=8&narrow=false&collapse=true&scope=thangs")

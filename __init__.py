@@ -4,6 +4,7 @@ import bpy
 from bpy.types import (Panel,
                        PropertyGroup,
                        Operator,
+                       WindowManager,
                        )
 from bpy.props import (StringProperty,
                        PointerProperty,
@@ -11,20 +12,11 @@ from bpy.props import (StringProperty,
                        BoolProperty,
                        IntProperty
                        )
-from mathutils import Vector
 from bpy_extras.object_utils import AddObjectHelper, object_data_add
 from bpy.app.handlers import persistent
-import math
-from urllib.request import urlopen
-import urllib.request
-import urllib.parse
-import requests
-import os
-import importlib
-import threading
 import bpy.utils.previews
-import asyncio
-#from . import addon_updater_ops
+from urllib.request import urlopen
+import os
 from .thangs_fetcher import ThangsFetcher
 from . import addon_updater_ops
 import socket
@@ -33,7 +25,7 @@ import socket
 bl_info = {
     "name": "Thangs Model Search",
     "author": "Thangs",
-    "version": (0, 1, 5),
+    "version": (0, 1, 6),
     "blender": (3, 2, 0),
     "location": "VIEW 3D > Tools > Thangs Search",
     "description": "Browse and download free 3D models",
@@ -110,7 +102,7 @@ def tag_redraw_areas(area_types: iter = ["ALL"]):
             fetcher.thangs_ui_mode = 'VIEW'
     area_types = confirm_list(area_types)
     screens = [bpy.context.screen] if bpy.context.screen else bpy.data.screens
-    print(screens)
+    # print(screens)
     for screen in screens:
         for area in screen.areas:
             for area_type in area_types:
@@ -124,6 +116,7 @@ def on_complete_search():
 
 
 fetcher = ThangsFetcher(callback=on_complete_search)
+
 #URLlist = []
 ButtonSearch = "Search"
 # Added
@@ -179,6 +172,7 @@ def FirstPage():
         return None
     fetcher.PageNumber = 1
     fetcher.search(fetcher.query)
+    return None
 
 
 class SearchButton(bpy.types.Operator):
@@ -243,19 +237,6 @@ class ThangsLink(bpy.types.Operator):
         return {'FINISHED'}
 
 
-def enum_previews_from_thangs_api(self, context):
-    """Thangs API callback"""
-    global fetcher
-
-    if context is None:
-        return fetcher.enumItems
-
-    wm = context.window_manager
-    #directory = bpy.context.scene.my_string_prop
-
-    return fetcher.pcoll.Mode
-
-
 icon_collections = {}
 icons_dict = bpy.utils.previews.new()
 icon_collections["main"] = icons_dict
@@ -273,10 +254,6 @@ class THANGS_OT_search_invoke(Operator):
     bl_options = {'REGISTER', 'INTERNAL'}
 
     next_mode: StringProperty()
-
-    # @classmethod
-    # def poll(cls, context):
-    #    return context.active_object is not None
 
     def execute(self, context):
         if fetcher.searching:
@@ -317,6 +294,8 @@ class THANGS_PT_model_display(bpy.types.Panel):
         return nm
 
     def drawView(self, context):
+        global pcollModel
+
         wm = context.window_manager
 
         layout = self.layout
@@ -352,42 +331,42 @@ class THANGS_PT_model_display(bpy.types.Panel):
                 p = row.operator("thangs.search_invoke", icon='CANCEL')
                 p.next_mode = self.next_mode('SEARCH')
 
-                row = layout.row()
-                row.scale_y = .001
-                row.template_icon_view(
-                    wm, "Model", scale=6.5, scale_popup=8, show_labels=True)
-
                 grid = layout.grid_flow(
                     columns=1, even_columns=True, even_rows=True)
-
+                z = 0
                 for model in fetcher.pcoll.Model:
-                    modelTitle = model[0]
-                    label = model[1]
 
                     cell = grid.column().box()
-                    cell.template_icon(icon_value=model[3], scale=7)
+
+                    if fetcher.length[z] > 1:
+                        cell.template_icon_view(
+                            wm, "ModelView{}".format((z+1)), scale=7, scale_popup=7, show_labels=True)
+                    else:
+                        cell.template_icon(
+                            icon_value=fetcher.thumbnailNumbers[z], scale=7)
 
                     col = cell.box().column(align=True)
                     row = col.row()
-                    row.label(text="{}".format(model[5]), icon='USER')
+                    row.label(text="{}".format(model[2]), icon='USER')
                     # row = col.row()
-                    # row.label(text="{}".format(model[6]), icon='TEXT')
+                    # row.label(text="{}".format(model[3]), icon='TEXT')
                     row = col.row()
-                    row.label(text="{}".format(model[7]), icon='FILEBROWSER')
+                    row.label(text="{}".format(model[4]), icon='FILEBROWSER')
 
                     for x in range(0, len(fetcher.modelInfo)):
-                        if fetcher.modelInfo[x][0] == modelTitle:
+                        if fetcher.modelInfo[x][0] == model[0]:
                             modelURL = fetcher.modelInfo[x][1]
-                    cell.operator('wm.url_open', text="%s" % modelTitle).url = modelURL + \
+
+                    cell.operator('wm.url_open', text="%s" % model[0]).url = modelURL + \
                         "/?utm_source=blender&utm_medium=referral&utm_campaign=blender_extender"
+
+                    z = z + 1
 
                 row = layout.row()
                 row.ui_units_y = .9
                 row.scale_y = .8
                 row.ui_units_x = 1
                 row.scale_x = 1
-
-                # row.separator(factor=0)
 
                 column1 = row.column(align=True)
                 if fetcher.PageNumber == 1:
@@ -436,8 +415,6 @@ class THANGS_PT_model_display(bpy.types.Panel):
                               "/"+str(fetcher.PageTotal)+"")
                 column4.operator("incpage.thangs", icon='PLAY')
                 column5.operator("lastpage.thangs", icon='FF')
-
-                # row.separator(factor=0)
 
                 row = layout.row()
                 o = row.operator("thangs.search_invoke", icon='CANCEL')
@@ -496,6 +473,46 @@ class THANGS_PT_model_display(bpy.types.Panel):
             self.drawSearch(context)
 
 
+def enum_previews_from_thangs_api1(self, context):
+    global fetcher
+    return fetcher.pcoll.ModelView1
+
+
+def enum_previews_from_thangs_api2(self, context):
+    global fetcher
+    return fetcher.pcoll.ModelView2
+
+
+def enum_previews_from_thangs_api3(self, context):
+    global fetcher
+    return fetcher.pcoll.ModelView3
+
+
+def enum_previews_from_thangs_api4(self, context):
+    global fetcher
+    return fetcher.pcoll.ModelView4
+
+
+def enum_previews_from_thangs_api5(self, context):
+    global fetcher
+    return fetcher.pcoll.ModelView5
+
+
+def enum_previews_from_thangs_api6(self, context):
+    global fetcher
+    return fetcher.pcoll.ModelView6
+
+
+def enum_previews_from_thangs_api7(self, context):
+    global fetcher
+    return fetcher.pcoll.ModelView7
+
+
+def enum_previews_from_thangs_api8(self, context):
+    global fetcher
+    return fetcher.pcoll.ModelView8
+
+
 preview_collections = fetcher.preview_collections
 
 
@@ -505,7 +522,7 @@ def startSearch(self, value):
 
 
 def register():
-
+    global fetcher
     from bpy.types import WindowManager
     from bpy.props import (
         StringProperty,
@@ -513,6 +530,7 @@ def register():
         IntProperty,
         PointerProperty,
     )
+    import bpy.utils.previews
 
     # Added
     WindowManager.Model_page = IntProperty(
@@ -532,7 +550,54 @@ def register():
         items=fetcher.enumItems,
     )
 
-    import bpy.utils.previews
+    WindowManager.ModelView1 = EnumProperty(
+        name="",
+        description="Click to view all results",
+        items=enum_previews_from_thangs_api1,
+    )
+
+    WindowManager.ModelView2 = EnumProperty(
+        name="",
+        description="Click to view all results",
+        items=enum_previews_from_thangs_api2,
+    )
+
+    WindowManager.ModelView3 = EnumProperty(
+        name="",
+        description="Click to view all results",
+        items=enum_previews_from_thangs_api3,
+    )
+
+    WindowManager.ModelView4 = EnumProperty(
+        name="",
+        description="Click to view all results",
+        items=enum_previews_from_thangs_api4,
+    )
+
+    WindowManager.ModelView5 = EnumProperty(
+        name="",
+        description="Click to view all results",
+        items=enum_previews_from_thangs_api5,
+    )
+
+    WindowManager.ModelView6 = EnumProperty(
+        name="",
+        description="Click to view all results",
+        items=enum_previews_from_thangs_api6,
+    )
+
+    WindowManager.ModelView7 = EnumProperty(
+        name="",
+        description="Click to view all results",
+        items=enum_previews_from_thangs_api7,
+    )
+
+    WindowManager.ModelView8 = EnumProperty(
+        name="",
+        description="Click to view all results",
+        items=enum_previews_from_thangs_api8,
+    )
+
     fetcher.pcoll = bpy.utils.previews.new()
     fetcher.icons_dict = bpy.utils.previews.new()
     fetcher.pcoll.Model_dir = ""
