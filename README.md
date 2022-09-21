@@ -10,7 +10,9 @@ Thangs-Blender-Addon is an open-source community-developed project using the Tha
 
 Thangs-Blender-Addon is an integrated search engine for [Blender](http://www.blender.org) that allows you to search for free prebuilt models/meshes so that you can save time in your creative workflow process. You can then navigate to [Thangs](https://thangs.com?utm_source=blender_github&utm_medium=referral&utm_campaign=blender_github) and import your desired model. The viewport can display previews of all the models found on Thangs in the add-on. The addon is meant to help find your desired meshes or models as fast as possible - while being a built in Blender model site :)
 
-![Thangs](https://user-images.githubusercontent.com/105221281/183229686-0c23f295-02a0-422d-8e5a-0f75dccf313d.gif)
+
+![My Video](https://user-images.githubusercontent.com/105221281/191535999-777c0cd0-9f2c-4eb4-9ca2-8ccd7cb05aec.gif)
+
 
 ## Install
 
