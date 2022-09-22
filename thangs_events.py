@@ -50,8 +50,10 @@ class ThangsEvents():
                     {
                         "event_type": "thangs-breeze - addon heartbeat",
                         "device_id": str(self.deviceId),
-                        "device_os": str(self.devideOS),
-                        "device_ver": str(self.deviceVer)
+                        "event_properties": {
+                            "device_os": str(self.devideOS),
+                            "device_ver": str(self.deviceVer)
+                        },
                     }
                 ]
             }
@@ -114,7 +116,12 @@ class ThangsEvents():
                 "events": [
                     {
                         "event_type": "thangs-breeze - search failed",
-                        "device_id": str(self.deviceId)
+                        "device_id": str(self.deviceId),
+                        "event_properties": {
+                            "searchTerm": str(fetcher.query),
+                            "device_os": str(self.devideOS),
+                            "device_ver": str(self.deviceVer)
+                        },
                     }
                 ]
             }
@@ -127,7 +134,12 @@ class ThangsEvents():
                 "events": [
                     {
                         "event_type": "thangs-breeze - nav to thangs",
-                        "device_id": str(self.deviceId)
+                        "device_id": str(self.deviceId),
+                        "event_properties": {
+                            "searchTerm": str(fetcher.query),
+                            "device_os": str(self.devideOS),
+                            "device_ver": str(self.deviceVer)
+                        },
                     }
                 ]
             }
