@@ -24,6 +24,7 @@ from bpy.props import (StringProperty,
                        )
 from bpy_extras.object_utils import AddObjectHelper, object_data_add
 from bpy.app.handlers import persistent
+import socket
 
 amplitude = ThangsEvents()
 amplitude.deviceId = socket.gethostname().split(".")[0]
